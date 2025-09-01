@@ -1,8 +1,10 @@
 """
-name: Your name(s) here
+name: Cameron Hakenson
 """
+
 # All modules for CS 412 must include a main method that allows it
 # to imported and invoked from other python scripts
+
 
 # searches for a certain key in a circular sorted array
 def circular_binary_search(arr, low, high, key):
@@ -12,20 +14,22 @@ def circular_binary_search(arr, low, high, key):
         return -1
 
     # determines the mid value
-    mid = (low + high)//2
+    mid = (low + high) // 2
 
     # determines if the mid value is key
     if key == arr[mid]:
         return mid
 
-    # checks if the left half is the correctly sorted half
-    if arr[low] < arr[mid]:
-        # checks if the key in the second half
+    if arr[low] <= arr[mid]:
         if (key >= arr[low]) and (key < arr[mid]):
             return circular_binary_search(arr, low, (mid - 1), key)
-
-    # recurses into the right half
-    return circular_binary_search(arr, (mid + 1), high, key)
+        else:
+            return circular_binary_search(arr, (mid + 1), high, key)
+    else:
+        if (key > arr[mid]) and (key <= arr[high]):
+            return circular_binary_search(arr, (mid + 1), high, key)
+        else:
+            return circular_binary_search(arr, low, (mid - 1), key)
 
 
 def main():
