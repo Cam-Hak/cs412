@@ -1,4 +1,4 @@
-"""Solution for Lab recursion
+"""Solution for Step 1 of Lab4
 
 Version: 2025
 Author: Cameron Hakenson
@@ -14,7 +14,10 @@ def isPalindrome(string):
     return False
 
 
-def count_palindromes(word):
+def count_palindromes(word, prev={}):
+    if word in prev:
+        return prev[word]
+
     if not word:
         return 1
 
@@ -24,6 +27,7 @@ def count_palindromes(word):
         if isPalindrome(word[:i]):
             # count the number of palindromes in the back half of the word
             valueTemp += count_palindromes(word[i:])
+            prev[word] = valueTemp
 
     return valueTemp
 
