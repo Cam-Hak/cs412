@@ -1,0 +1,31 @@
+
+function solve(values array, weights array, n (length), W (max weight))
+
+    function knapsack(i, value, weight)
+
+        if weight > W
+            return -1
+
+        if i == n
+            return value
+
+        skip = knapsack(i + 1, value, weight)
+
+        take = -1
+        if weight + weights[i] <= W
+            take = knapsack(i + 1, value + values[i], weight + weights[i])
+
+
+    return max(take, skip)
+
+Reflection:
+  1. The fractional knapsack problem is easier because it can be solved with a greedy algorithm in O(n log n) time
+  while the 0/1 knapsack problem which is slower.
+  2. The fractional greedy method would be fast but it would not always give the correct answer?
+  3. Example:
+    Capacity = 50
+    A: value 60, weight 10
+    B: value 100, weight 20
+    C: value 120, weight 30
+    Fractional knapsack: 240
+    0/1 knapsack: 220
