@@ -7,39 +7,47 @@ from collections import deque
 # All modules for CS 412 must include a main method that allows it
 # to imported and invoked from other python scripts
 
-
 def wfs(graph, start, goal):
+    # quick sanity check
+    if start not in graph or goal not in graph:
+        print("no route possible")
+        return
+
     bag = deque()
     marked = set()
-    # parent = {}
+    parent = {}
 
     bag.append(start)
+    marked.add(start)
+    parent[start] = None
 
-    while len(bag) != 0:
+    while bag:
         v = bag.pop()
 
-        if v in marked:
-            continue
-
         if v == goal:
-            print(bag)
-
-        marked.add(v)
+            path = []
+            cur = goal
+            while cur is not None:
+                path.append(cur)
+                cur = parent[cur]
+            path.reverse()
+            print(" ".join(path))
+            return
 
         for adj in graph[v]:
-            bag.append(adj)
+            if adj not in marked:
+                marked.add(adj)
+                parent[adj] = v
+                bag.append(adj)
+
+    print("no route possible")
 
 
 def main():
     graph = {}
     num_segments = int(input())
     for _ in range(num_segments):
-        stop = input().split(" ")
-        a = stop[0]
-        b = stop[1]
-
-        # adds a key for each stop listed and a
-        # value for what stops are connected to it
+        a, b = input().split(" ")
 
         if a not in graph:
             graph[a] = []
@@ -49,9 +57,7 @@ def main():
         graph[a].append(b)
         graph[b].append(a)
 
-    start_end = input().split(" ")
-    start = start_end[0]
-    end = start_end[1]
+    start, end = input().split(" ")
     wfs(graph, start, end)
 
 
