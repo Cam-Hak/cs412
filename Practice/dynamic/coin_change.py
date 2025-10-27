@@ -1,0 +1,11 @@
+twodee = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9]
+]
+
+for i in range(len(twodee)):
+    for j in range(len(twodee)):
+        twodee[i][j] = j
+
+print(twodee[0])
